@@ -22,6 +22,7 @@ const Product = () => {
   useEffect(() => {
     if (selectedProduct) {
       setQuantity(selectedProduct.quantity);
+      window.scrollTo(0, 0);
     }
   }, [selectedProduct]);
 
