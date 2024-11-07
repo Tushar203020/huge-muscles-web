@@ -16,7 +16,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "src/assets/wheyprotin.png",
+    imageSrc: "../../../../assets/wheyprotin.png",
     title: i18n.t("itemsArray.1.title"),
     price: 799,
     stars: Math.floor(Math.random() * 3) + 3,
@@ -28,7 +28,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "src/assets/farmfitmix.png",
+    imageSrc: "../../../../assets/farmfitmix.png",
     title: i18n.t("itemsArray.2.title"),
     price: 499,
     stars: Math.floor(Math.random() * 3) + 3,
@@ -40,7 +40,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "src/assets/wheyprotin.png",
+    imageSrc: "../../../../assets/wheyprotin.png",
     title: i18n.t("itemsArray.3.title"),
     price: 799,
     stars: Math.floor(Math.random() * 3) + 3,
@@ -52,7 +52,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "src/assets/farmfitmix.png",
+    imageSrc: "../../../../assets/farmfitmix.png",
     title: i18n.t("itemsArray.4.title"),
     price: 499,
     stars: Math.floor(Math.random() * 3) + 3,
@@ -64,7 +64,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "src/assets/wheyprotin.png",
+    imageSrc: "../../../../assets/wheyprotin.png",
     title: i18n.t("itemsArray.5.title"),
     price: 799,
     stars: Math.floor(Math.random() * 3) + 3,
@@ -76,7 +76,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "src/assets/farmfitmix.png",
+    imageSrc: "../../../../assets/farmfitmix.png",
     title: i18n.t("itemsArray.6.title"),
     price: 499,
     stars: Math.floor(Math.random() * 3) + 3,
