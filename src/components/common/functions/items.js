@@ -52,7 +52,7 @@ export const ITEMS = [
   },
   {
     id: String(idCounter++),
-    imageSrc: "../../../../assets/tv.png",
+    imageSrc: "../../../../assets/farmfitmix.png",
     title: i18n.t("itemsArray.4.title"),
     price: 499,
     stars: Math.floor(Math.random() * 3) + 3,
