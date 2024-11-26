@@ -16,7 +16,7 @@ const Payment = () => {
   //   try {
   //     const result = await processPayment(paymentInfo);
   //     // Handle success
-  //     console.log("Payment successful:", result.data);
+  //     ("Payment successful:", result.data);
   //   } catch (error) {
   //     // Handle error
   //     console.error("Payment error:", error);

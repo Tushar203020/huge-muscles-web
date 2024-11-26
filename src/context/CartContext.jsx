@@ -45,6 +45,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const handleIncrease = (item) => {
+  
+    
     if (item.quantity >= 0) {
       if (item.quantity === 0) {
         addToCart(item);

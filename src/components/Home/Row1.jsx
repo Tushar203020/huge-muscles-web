@@ -1,82 +1,75 @@
-import i18n from "../common/components/LangConfig";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ITEMS } from "../common/functions/items";
-import Banner1 from "./Banner1.jpg";
-import Banner2 from "./Banner2.jpg";
-import Banner3 from "./Banner3.jpg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 const Row1 = () => {
-  const dealItem = ITEMS.find(
-    (item) => item.title === i18n.t("itemsArray.17.title")
-  );
+  const [carouselImages, setCarouselImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch banner images from the API
+  useEffect(() => {
+    const fetchBannerImages = async () => {
+      try {
+        const response = await fetch("https://huge-muscles.com/api/bannerPhoto");
+        if (!response.ok) {
+          throw new Error("Failed to fetch banner images");
+        }
+        const data = await response.json();
+
+        if (data.success) {
+          const images = data.data.map((item) => {
+            return item.base_url + item.internal_path + item.image_name;
+          });
+          setCarouselImages(images);
+        } else {
+          console.error("Failed to fetch banners:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching banner images:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBannerImages();
+  }, []);
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,  // Default to 1 slide at a time
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
     pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 1024,  // Tablet screen
-        settings: {
-          slidesToShow: 1,  // 1 slide per view
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 768,  // Mobile screen
-        settings: {
-          slidesToShow: 1,  // 1 slide per view
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 480,  // Small mobile screen
-        settings: {
-          slidesToShow: 1,  // 1 slide per view
-          slidesToScroll: 1
-        }
-      }
-    ]
   };
-
-  const carouselImages = [
-    Banner1,
-    Banner2,
-    Banner3
-  ];
 
   return (
     <div className="flex flex-row w-full overflow-hidden">
-      {/* Main Content */}
-      <div className="flex flex-row w-full">
-        <Slider {...settings} style={{ width: "100%" }}>
-          {carouselImages.map((image, index) => (
-            <div key={index} className="w-full">
-              <Link to="/allProducts">
-                <img
-                  style={{
-                    width: "100%", 
-                    height: "auto", 
-                    maxHeight: "500px", 
-                    objectFit: "cover"
-                  }}
-                  src={image} // Display local images here
-                  alt={`Apple Deal ${index + 1}`}
-                  loading="lazy"
-                  className="w-full hover:motion-safe:animate-pulse"
-                />
-              </Link>
-            </div>
-          ))}
+      <div className="w-full">
+        <Slider {...settings} className="w-full">
+          {loading ? (
+            <div></div>
+          ) : carouselImages.length > 0 ? (
+            carouselImages.map((image, index) => (
+              <div key={index} className="w-full">
+                <Link to="/allProducts">
+                  <img
+                    src={image}
+                    alt={`Banner ${index + 1}`}
+                    loading="lazy"
+                    className="w-full h-[300px] sm:h-[430px] md:h-[450px] lg:h-[500px]"
+                  />
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div>No banners available.</div>
+          )}
         </Slider>
       </div>
     </div>

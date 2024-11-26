@@ -27,14 +27,29 @@ const RemoveIcon = () => (
 const CartItem = ({ item }) => {
   const { removeFromCart, handleIncrease, handleDecrease } = useCart();
   const [quantity, setQuantity] = useState(item.quantity);
+  const [flavors, setFlavors] = useState([]);
+  const [selectedFlavor, setSelectedFlavor] = useState(item.flavor || "");
 
   useEffect(() => {
     setQuantity(item.quantity);
-  }, [item.quantity]);
+  
+  // Find product matching the current cart item's ID
+  // const product = storedProducts.find((product) => product.id === item.id);
+  
+  // If product is found, set the flavors; otherwise, set an empty array
+  setFlavors(item?.flavour || []);
+  }, [item.id, item.quantity]);
 
   const handleRemove = () => {
     removeFromCart(item.id);
   };
+
+  const handleFlavorChange = (event) => {
+    setSelectedFlavor(event.target.value);
+    // Optionally update the flavor in cart or backend
+  };
+
+  
 
   const handleDecreaseFunc = () => {
     handleDecrease(item);
@@ -45,49 +60,67 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <div className=" flex flex-row justify-between items-center py-2 md:py-6 px-2 md:pr-12 md:pl-4 shadow rounded gap-4 md:gap-16  ">
-      <div className="flex items-center md:gap-4">
-        <div className="flex w-28">
-          <IconButton onClick={handleRemove} className="absolute -top-4">
-            <RemoveIcon />
-          </IconButton>
-          <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
-            <img
-              loading="lazy"
-              src={item.imageSrc}
-              alt={item.title}
-              className="w-16 h-16"
-            />
-          </Link>
-        </div>
-        <p className="hidden lg:flex text-xs md:text-base ">{item.title}</p>
-      </div>
-      <div className="flex items-center ">
-        <p className="text-gray-500">${item.price}</p>
-      </div>
-      <div className="flex items-center border-2 border-gray-300  rounded px-2 py-1  mr-2 gap-3">
-        <p className="text-gray-500">{quantity}</p>
+    <tr className="border-b">
+      <td className="py-4 px-2 flex items-center gap-4">
+        <IconButton onClick={() => removeFromCart(item.id)}>
+          <RemoveIcon />
+        </IconButton>
+        <Link to={`/allProducts/${item.id}`}>
+          <img
+            loading="lazy"
+            src={item.imageSrc}
+            alt={item.title}
+            className="w-16 h-16 object-contain"
+          />
+        </Link>
+        {/* Adjusting for text overflow with responsive handling */}
+        <span className="text-sm truncate md:whitespace-normal md:w-auto w-[120px]">{item.title}</span>
+      </td>
+      <td className="py-4 px-4">${item.price}</td>
+      <td className="py-4 px-4">
+  <select
+    value={selectedFlavor}
+    onChange={handleFlavorChange}
+    className="border px-2 py-1 rounded"
+  >
+    <option value="" disabled>
+      Select Flavor
+    </option>
+    {flavors.map((flavor, index) => (
+      <option key={index} value={flavor}>
+        {flavor}
+      </option>
+    ))}
+  </select>
+</td>
 
-        <div className="flex flex-col items-center justify-center ">
-          <button
-            className="px-1 rounded-full hover:bg-gray-200 text-gray-400 "
-            onClick={handleIncreaseFunc}
-          >
-            +
-          </button>
-          <button
-            className="px-1 rounded-full hover:bg-gray-200 text-gray-400 "
-            onClick={handleDecreaseFunc}
-          >
-            -
-          </button>
-        </div>
-      </div>
-      <div className="items-center hidden md:flex">
-        <p className="text-gray-500">${item.price * quantity}</p>
-      </div>
-    </div>
+      <td className="py-4 px-4 flex items-center gap-2">
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-200"
+          onClick={() => handleDecrease(item)}
+        >
+          -
+        </button>
+        <span>{item.quantity}</span>
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-200"
+          onClick={() => handleIncrease(item)}
+        >
+          +
+        </button>
+      </td>
+      <td className="py-4 px-4">₹{item.price * item.quantity}</td>
+      <td className="py-4 px-4">
+        <button
+          onClick={() => removeFromCart(item.id)}
+          className="text-red-500 hover:underline"
+        >
+          Remove
+        </button>
+      </td>
+    </tr>
   );
 };
+
 
 export default CartItem;

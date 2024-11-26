@@ -20,23 +20,29 @@ const Cart = () => {
   return (
     <div className="max-w-screen-lg mx-auto mt-48 flex flex-col gap-10">
       <ActiveLastBreadcrumb path="Home/Cart" />
-      <div className="flex flex-row justify-between items-center py-6 px-2 md:px-14 shadow rounded md:gap-24  ">
-        <h2 className="text-base">{i18n.t("cart.header.product")}</h2>
-        <h2 className="text-base ml-10">{i18n.t("cart.header.price")}</h2>
-        <h2 className="text-base ">{i18n.t("cart.header.quantity")}</h2>
-        <h2 className="text-base hidden md:flex">
-          {i18n.t("cart.header.subtotal")}
-        </h2>
-      </div>
-      {cartItems.map((item, index) => (
-        <CartItem
-          key={item.title}
-          item={item}
-          index={index}
-          stars={item.stars}
-          rates={item.rates}
-        />
-      ))}{" "}
+      <div className="overflow-auto">
+  <table className="w-full text-left border-collapse">
+    <thead className="bg-gray-100">
+      <tr>
+        <th className="py-4 px-20">{i18n.t("cart.header.product")}</th>
+        <th className="py-4 px-4">{i18n.t("cart.header.price")}</th>
+        <th className="py-4 px-4">Flavour</th>
+        <th className="py-4 px-4">{i18n.t("cart.header.quantity")}</th>
+        <th className="py-4 px-4">{i18n.t("cart.header.subtotal")}</th>
+        <th className="py-4 px-4">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {cartItems.map((item) => {
+              // Retrieve product_flavours from localStorage for each item
+              const flavours = JSON.parse(localStorage.getItem("product_flavours")) || {};
+              const productFlavours = flavours[item.id] || []; // Get flavours for the specific product
+              return <CartItem key={item.id} item={item} flavours={productFlavours} />;
+            })}
+    </tbody>
+  </table>
+</div>
+
       {/* Buttons for returning to shop, applying coupon, and proceeding to checkout */}
       <div className="flex justify-between items-center mt-2">
         <Link to="..">
@@ -46,24 +52,14 @@ const Cart = () => {
         <WhiteButton name={i18n.t("whiteButtons.updateCart")} />
       </div>
       <div className="flex items-center mt-4 md:flex-row gap-8 flex-col justify-between ">
-        <div className="flex items-center md:justify-between justify-center mt-4 gap-2 ">
-          <input
-            type="text"
-            placeholder={i18n.t("checkOut.couponCode")}
-            className="border border-gray-900 rounded-md p-3 w-[160px] lg:w-[260px] text-sm md:text-base"
-          />
-          <RedButton name={i18n.t("redButtons.applyCoupon")} />
-        </div>
+    
 
         <div className="flex justify-between flex-col gap-6  border py-8 px-6 md:w-[470px]">
           <p className="text-xl font-semibold">{i18n.t("cart.cartTotal")}</p>
+          
           <div className="flex justify-between mt-4 border-b">
             <p className="text-xl">{i18n.t("cart.total")}:</p>
-            <p className="text-xl">${subtotal}</p>
-          </div>
-          <div className="flex justify-between mt-4 border-b">
-            <p className="text-xl">{i18n.t("cart.subtotal")}:</p>
-            <p className="text-xl">${total}</p>
+            <p className="text-xl">₹{total}</p>
           </div>
           <div className="flex justify-between mt-4 border-b">
             <p className="text-xl">{i18n.t("cart.shipping")}:</p>

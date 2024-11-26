@@ -1,5 +1,5 @@
 // LangConfig.jsx
-import { ManageAccounts, Reviews } from "@mui/icons-material";
+
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
@@ -20,6 +20,7 @@ const resources = {
 
       home: "Home",
       contact: "Contact",
+      allProduct: "All Product",
       about: "About",
       signUp: "Sign Up",
       account: "My Account",
@@ -209,17 +210,17 @@ const resources = {
         title: "About",
         story: "Our Story",
         paragraph1:
-          "Launced in 2015, Exclusive is South Asia’s premier online shopping makterplace with an active presense in Bangladesh. Supported by wide range of tailored marketing, data and service solutions, Exclusive has 10,500 sallers and 300 brands and serves 3 millioons customers across the region.",
+          "At Huge Muscles, we believe in the power of hard work, dedication, and the right fuel to transform your body and mind. Founded by a passionate team of fitness enthusiasts, athletes, and nutrition experts, Huge Muscles was created with one goal in mind: to provide high-quality, science-backed nutrition products that support your fitness journey at every stage.",
         paragraph2:
-          "Exclusive has more than 1 Million products to offer, growing at a very fast. Exclusive offers a diverse assotment in categories ranging from consumer.",
-        card1: "Sellers active on our site",
-        card2: "Monthly Product Sales",
-        card3: "Customers active on our site",
-        card4: "Annual gross sale on our site",
-        k1: "10.5k",
-        k2: "33k",
-        k3: "45.5k",
-        k4: "25k",
+          "We know that building strength, endurance, and muscle takes more than just lifting weights. It takes the right balance of protein, nutrients, and recovery to fuel your body’s growth. That's why we’ve carefully crafted a range of premium whey protein and supplements designed to give you the energy, performance, and results you deserve. Whether you're just starting out or you're a seasoned athlete, Huge Muscles is here to help you reach new heights.",
+        card1: "Products ",
+        card2: "Organic Ingrediance",
+        card3: "customer satisfaction",
+        card4: "Users",
+        k1: "15+",
+        k2: "100%",
+        k3: "10/10",
+        k4: "1k+",
         name1: "Tom Cruise",
         name2: "Tom Hanks",
         name3: "Will Smith",

@@ -48,8 +48,8 @@ const Footer = () => {
               {i18n.t("footer.support")}
             </Typography>
             <Typography variant="body2">Address: Gujarat, Ahmedabad</Typography>
-            <Typography variant="body2">Email: sahil@gmail.com</Typography>
-            <Typography variant="body2">Phone: +91 9173531494</Typography>
+            <Typography variant="body2">Email: abcd@gmail.com</Typography>
+            <Typography variant="body2">Phone: +91 1234567890</Typography>
           </Grid>
 
           {/* Quick Links Section */}

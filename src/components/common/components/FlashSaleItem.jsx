@@ -60,7 +60,7 @@ const FlashSaleItem = ({ item }) => {
             onClick={handleAddToCart}
             className={`z-10 absolute bottom-0 left-0 right-0 bg-[#f7af31] text-white py-2 px-4 duration-300 
     hover:bg-[#f7af31] focus:outline-none ${
-      isInCart && "bg-red-500"
+      isInCart && "bg-[#f7af31]"
     }`}
           >
             {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
@@ -77,29 +77,31 @@ const FlashSaleItem = ({ item }) => {
             {i18n.t("new")}
           </div>
         )}
-        <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
-          <img
-            loading="lazy"
-            src={item.imageSrc}
-            alt={item.title}
-            className="hover:animate-pulse  max-h-52  w-full object-contain"
-          />
-        </Link>
+       <Link to={`/allProducts/${item.id}`} key={item.id}>
+        <img
+          loading="lazy"
+          src={item.imageSrc}
+          alt={item.title}
+          className="hover:animate-pulse max-h-52 w-full object-contain"
+        />
+      </Link>
+
 
         <WishlistIcon selectedProduct={item} style="absolute top-3 right-3" />
       </div>
       <div className="flex md:items-start items-center flex-col ">
-        <h3 className="text-lg font-base mt-4">{item.title}</h3>
-        <p className="text-red-500  text-sm font-semibold line-clamp-2">
-          ${item.price}
+      <h3 className="text-lg font-base mt-4 truncate">{item.title}</h3>
+
+        <p className="text-custom-orange text-sm font-semibold line-clamp-2">
+        ₹{item.price}
           {item.discount && (
             <span className="ml-2 text-gray-500 text-sm font-semibold line-through">
-              ${item.price + (item.price * item.discount) / 100}
+             ₹{item.price + (item.price * item.discount) / 100}
             </span>
           )}
         </p>
         <span>
-          <div className="flex mt-2 text-gray-500 text-sm font-semibold gap-2 items-center ">
+          <div className="flex mt-2 text-custom-orange text-sm font-semibold gap-2 items-center ">
             {renderStars()} <span>({item.rates})</span>
             <RatingComp
               text={i18n.t("productPage.review")}

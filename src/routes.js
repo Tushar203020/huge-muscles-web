@@ -11,6 +11,8 @@ import Product from "./Pages/Product";
 import AllProducts from "./Pages/AllProducts";
 import NotFound from "./Pages/NotFound";
 import Category from "./Pages/Category";
+import AllProductsPage from "./components/Home/AllProducts";
+import Checkout from "./Pages/Checkout";
 
 const routes = [
   {
@@ -24,12 +26,13 @@ const routes = [
       // { path: "signup", element: SignUp },
       // { path: "login", element: LogIn },
       { path: "wishlist", element: Wishlist },
-      // { path: "cart", element: Cart },
-      // { path: "checkout", element: Checkout },
+      { path: "cart", element: Cart },
+      { path: "checkout", element: Checkout },
       // { path: "payment", element: Payment },
-      { path: "allProducts", element: AllProducts },
+      { path: "allProducts", element: AllProductsPage },
+      { path: "allProducts/:id", element: Product },
       // { path: "category", element: Category },
-      { path: "allProducts/:title", element: Product },
+      // { path: "allProducts/:title", element: Product },
       { path: "*", element: NotFound },
     ],
   },

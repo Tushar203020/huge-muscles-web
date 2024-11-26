@@ -1,52 +1,83 @@
-import FlashSaleItem from "../common/components/FlashSaleItem";
-import PropTypes from "prop-types";
-import RedTitle from "../common/components/RedTitle";
-import Arrows from "../common/components/Arrows";
-import ViewAll from "../common/components/ViewAll";
-import i18n from "../common/components/LangConfig";
+import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
+import FlashSaleItem from "../common/components/FlashSaleItem"; // Assuming you have this component for displaying each product
+import i18n from "../common/components/LangConfig";
+import { Link } from "react-router-dom";
 
-const AllProducts = ({ items }) => {
+const AllProductsPage = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("https://huge-muscles.com/api/product");
+      const result = await response.json();
+
+      if (result.success) {
+        const transformedProducts = result.data.map((product) => {
+          const bannerImage = product.productPhotos.find(
+            (photo) => photo.is_banner
+          );
+          return {
+            id: product.id,
+            imageSrc: bannerImage
+              ? `${bannerImage.base_url}${bannerImage.internal_path}${bannerImage.image_name}`
+              : "path/to/default-image.jpg",
+            title: product.product_name,
+            flavour:product.product_flavours,
+            price: parseInt(product.product_discount_price),
+            stars: Math.floor(Math.random() * 3) + 3,
+            rates: Math.floor(Math.random() * 100),
+            orignal: parseInt(product.product_orignal_price),
+            discount: product.product_discount ? product.product_discount.replace("%", "") : "",
+            quantity: parseInt(product.product_quantity),
+            details: product.product_description,
+          };
+        });
+        setProducts(transformedProducts);
+      } else {
+        setError("Failed to fetch products");
+      }
+    } catch (err) {
+      setError("Error fetching products: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      <div className="mx-2 xl:mx-0 my-12">
-        <RedTitle title={i18n.t("allProducts.redTitle")} />
-        <div className="flex justify-between items-center md:mr-6 md:mb-4">
-          <h2 className="text-xl md:text-3xl font-semibold ">
-            {i18n.t("allProducts.title")}
-          </h2>
-          <Arrows />
+    <div className="my-12 mx-auto w-full px-4 max-w-screen-xl">
+      <h2 className="text-3xl font-semibold text-center mb-6">{i18n.t("allProducts.title")}</h2>
+      
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
         </div>
-        <div className="relative mt-10 flex flex-row gap-2 md:gap-12 transition-transform duration-300 transform ">
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            alignItems="center"
-          >
-            {items.slice(0, 8).map((item, index) => (
-              <Grid item key={item.id}>
-                <FlashSaleItem
-                  item={item}
-                  index={index}
-                  totalItems={items.length}
-                  stars={item.stars}
-                  rates={item.rates}
-                />
-              </Grid>
-            ))}
+      ) : error ? (
+        <div className="text-center text-red-500 py-10">{error}</div>
+      ) : (
+        <Grid container spacing={3} justifyContent="center" alignItems="center">
+          {products.map((item) => (
+            <Grid item key={item.id}>
+            {/* <Link to={`/product/${item.id}`}> */}
+              <FlashSaleItem
+                item={item}
+                stars={item.stars}
+                rates={item.rates}
+                totalItems={products.length}
+              />
+            {/* </Link> */}
           </Grid>
-        </div>
-      </div>
-      <div className=" flex justify-center">
-        <ViewAll name={i18n.t("redButtons.viewAllProducts")} />
-      </div>
-    </>
+          ))}
+        </Grid>
+      )}
+    </div>
   );
 };
 
-AllProducts.propTypes = {
-  items: PropTypes.array.isRequired,
-};
-
-export default AllProducts;
+export default AllProductsPage;

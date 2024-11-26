@@ -29,9 +29,9 @@ const WishlistIcon = ({ selectedProduct, style = "" }) => {
   return (
     <div className="">
       {isInWishlist ? (
-        <div className={`${style} bg-zinc-200 hover:bg-red-500  rounded-full `}>
+        <div className={`${style} bg-zinc-200 hover:bg-[#F7AF31]-500  rounded-full `}>
           <IconButton onClick={handleDeleteFromWishlist} size="small">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full hover:bg-red-500 opacity-75"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full hover:bg-[#f7af31]-500 opacity-75"></span>
             <svg
               className="w-8 h-8 p-1"
               width="18"
@@ -51,9 +51,9 @@ const WishlistIcon = ({ selectedProduct, style = "" }) => {
           </IconButton>
         </div>
       ) : (
-        <div className={`${style}  bg-zinc-200 hover:bg-red-500 rounded-full`}>
+        <div className={`${style}  bg-zinc-200 hover:bg-[#F7AF31] rounded-full`}>
           <IconButton onClick={handleAddToWishlist} size="small">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full hover:bg-red-500 opacity-75"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full hover:bg-[#F7AF31]-500 opacity-75"></span>
             <svg
               width="32"
               height="32"

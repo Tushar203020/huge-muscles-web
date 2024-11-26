@@ -7,6 +7,7 @@ import i18n from "../components/common/components/LangConfig";
 import RedButton from "../components/common/components/RedButton";
 import WhiteButton from "../components/common/components/WhiteButton";
 import Loader from "../components/common/components/Loader";
+
 const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [displayedItems, setDisplayedItems] = useState(10);
@@ -33,6 +34,51 @@ const AllProducts = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    fetchProducts()
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("https://huge-muscles.com/api/product");
+      const result = await response.json();
+
+      if (result.success) {
+        const transformedProducts = result.data.map((product) => {
+          // Find the banner image from productPhotos
+          const bannerImage = product.productPhotos.find(
+            (photo) => photo.is_banner
+          );
+          
+          return {
+            id: product.id,
+            imageSrc: bannerImage
+              ? `${bannerImage.base_url}${bannerImage.internal_path}${bannerImage.image_name}`
+              : "path/to/default-image.jpg", // Fallback to a default image if bannerImage is undefined
+            title: product.product_name,
+            flavor:product.product_flavours,
+            price: parseInt(product.product_discount_price),
+            stars: Math.floor(Math.random() * 3) + 3, // Random stars between 3 and 5
+            rates: Math.floor(Math.random() * 100), // Random number of ratings
+            orignal: parseInt(product.product_orignal_price),
+            discount: product.product_discount ? product.product_discount.replace("%", "") : "",
+            quantity: parseInt(product.product_quantity),
+            details: product.product_description,
+          };
+        });
+      
+        // setProducts(transformedProducts);
+      } else {
+        // setError("Failed to fetch products");
+      }
+    } catch (err) {
+      // setError("Error fetching products: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   return (
     <div className=" mt-40 flex flex-col gap-5">
       <Typography variant="h3" align="center" gutterBottom>
@@ -48,12 +94,14 @@ const AllProducts = () => {
               ))
             : duplicatedItems.slice(0, displayedItems).map((item) => (
                 <Grid item key={item.id}>
-                  <FlashSaleItem
-                    item={item}
-                    totalItems={totalItems}
-                    stars={item.stars}
-                    rates={item.rates}
-                  />
+                  <Link to={`/allProducts/${item.id}`}>
+                    <FlashSaleItem
+                      item={item}
+                      totalItems={totalItems}
+                      stars={item.stars}
+                      rates={item.rates}
+                    />
+                  </Link>
                 </Grid>
               ))}
         </Grid>
@@ -73,9 +121,6 @@ const AllProducts = () => {
         <Link to="..">
           <WhiteButton name={i18n.t("whiteButtons.backToHomePage")} />
         </Link>
-        {/* <Link to="/category">
-          <RedButton name={i18n.t("redButtons.exploreByCategory")} />
-        </Link> */}
       </div>
     </div>
   );

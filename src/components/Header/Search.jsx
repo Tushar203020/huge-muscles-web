@@ -23,6 +23,7 @@ const Search = styled("div")(({ theme }) => ({
     flex: 1,
     "& .MuiInputBase-root": {
       borderRadius: "10",
+      width:"100px",
       backgroundColor: "transparent",
       "& .MuiInputBase-input": {
         borderRadius: "10",
@@ -65,7 +66,7 @@ const SearchAppBar = () => {
           <TextField
             {...params}
             variant="standard"
-            placeholder={i18n.t("search.placeholder")}
+            placeholder={i18n.t("Search")}
             onKeyDown={handleKeyDown}
             InputProps={{
               ...params.InputProps,
@@ -77,7 +78,7 @@ const SearchAppBar = () => {
           />
         )}
       />
-      <IconButton component={Link} to={`/search?q=${searchText.trim()}`}>
+      <IconButton component={Link} to={`/search?q=${searchText.trim()}`} >
         <CiSearch className="text-2xl" />
       </IconButton>
     </Search>

@@ -1,7 +1,9 @@
+// Navigations.jsx
 import { useState } from "react";
 import { Drawer, IconButton, List, ListItem, ListItemText, useMediaQuery, useTheme, Tabs, Tab } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
+import MenuIcon from "@mui/icons-material/Menu";
 import i18n from "../common/components/LangConfig";
 
 const Navigations = () => {
@@ -12,7 +14,7 @@ const Navigations = () => {
 
   const routes = [
     { path: "/", label: i18n.t("home") },
-    { path: "/allProducts", label: i18n.t("allProducts.redTitle") },
+    { path: "/allProducts", label: "All Products"  },
     { path: "/contact", label: i18n.t("contact") },
     { path: "/about", label: i18n.t("about") },
   ];
@@ -30,59 +32,20 @@ const Navigations = () => {
     <>
       {isMobile ? (
         <>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
-            <svg
-              className="w-6 sm:w-8"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z"
-                fill="black"
-              />
-            </svg>
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+            <MenuIcon className="w-6 sm:w-8" />
           </IconButton>
-
-          <Drawer
-            anchor="left"
-            open={drawerOpen}
-            onClose={toggleDrawer(false)}
-            className="z-50"
-          >
-            <motion.div
-              initial={{ x: -200, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="px-5 py-20 w-60 bg-white h-screen flex flex-col justify-between"
-            >
+          <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} className="z-50">
+            <motion.div initial={{ x: -200, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="px-5 py-20 w-60 bg-white h-screen flex flex-col justify-between">
               <List>
                 {routes.map((route, index) => (
-                  <ListItem
-                    button
-                    key={index}
-                    component={Link}
-                    to={route.path}
-                    onClick={toggleDrawer(false)}
-                  >
+                  <ListItem button key={index} component={Link} to={route.path} onClick={toggleDrawer(false)}>
                     <ListItemText primary={route.label} />
                   </ListItem>
                 ))}
               </List>
-
               <footer className="text-center py-4">
-                <a
-                  href=""
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="#" target="_blank" rel="noopener noreferrer">
                   © 2024 Huge Muscles. {i18n.t("footer.allRightsReserved")}
                 </a>
               </footer>

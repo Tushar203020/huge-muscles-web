@@ -16,3 +16,26 @@
 ::-webkit-scrollbar-thumb {
   background-color: rgb(0, 0, 0);
 }
+/* Tailwind classes for responsive images */
+.carousel-image {
+  width: 100%;
+  object-fit: contain; /* Ensures the full image is displayed */
+}
+
+@media (min-width: 768px) {
+  .carousel-image {
+    height: 400px; /* Set height for tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-image {
+    height: 500px; /* Set height for laptops and larger devices */
+  }
+}
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

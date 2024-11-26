@@ -8,39 +8,39 @@ import i18n from "../common/components/LangConfig";
 
 const teamMembersData = [
   {
-    name: i18n.t("aboutPage.name1"),
-    role: i18n.t("aboutPage.job3"),
-    image: Person1,
+    // name: i18n.t("aboutPage.name1"),
+    // role: i18n.t("aboutPage.job3"),
+    // image: Person1,
   },
   {
-    name: i18n.t("aboutPage.name2"),
-    role: i18n.t("aboutPage.job1"),
-    image: Person2,
+    // name: i18n.t("aboutPage.name2"),
+    // role: i18n.t("aboutPage.job1"),
+    // image: Person2,
   },
   {
-    name: i18n.t("aboutPage.name4"),
-    role: i18n.t("aboutPage.job2"),
-    image: Person1,
+    // name: i18n.t("aboutPage.name4"),
+    // role: i18n.t("aboutPage.job2"),
+    // image: Person1,
   },
   {
-    name: i18n.t("aboutPage.name3"),
-    role: i18n.t("aboutPage.job3"),
-    image: Person2,
+    // name: i18n.t("aboutPage.name3"),
+    // role: i18n.t("aboutPage.job3"),
+    // image: Person2,
   },
   {
-    name: i18n.t("aboutPage.name2"),
-    role: i18n.t("aboutPage.job1"),
-    image: Person1,
+    // name: i18n.t("aboutPage.name2"),
+    // role: i18n.t("aboutPage.job1"),
+    // image: Person1,
   },
   {
-    name: i18n.t("aboutPage.name1"),
-    role: i18n.t("aboutPage.job4"),
-    image: Person2,
+    // name: i18n.t("aboutPage.name1"),
+    // role: i18n.t("aboutPage.job4"),
+    // image: Person2,
   },
   {
-    name: i18n.t("aboutPage.name3"),
-    role: i18n.t("aboutPage.job2"),
-    image: Person1,
+    // name: i18n.t("aboutPage.name3"),
+    // role: i18n.t("aboutPage.job2"),
+    // image: Person1,
   },
 ];
 
@@ -48,13 +48,13 @@ const TeamMember = ({ name, role, image }) => {
   return (
     <Box className="flex gap-4 flex-col ">
       <Box className="bg-gray-200 rounded-xl w-full md:w-96 flex items-center justify-center">
-        <img src={image} alt="image" />
+        {/* <img src={image} alt="image" /> */}
       </Box>
       <Box className="flex md:mx-10  gap-4 items-center md:items-start flex-col ">
         <h2 className="font-bold text-3xl">{name}</h2>
         <p className="text-base">{role}</p>
         <>
-          <a href="#">
+          {/* <a href="#">
             <svg
               width="104"
               height="24"
@@ -96,7 +96,7 @@ const TeamMember = ({ name, role, image }) => {
                 </clipPath>
               </defs>
             </svg>
-          </a>
+          </a> */}
         </>
       </Box>
     </Box>
@@ -108,21 +108,21 @@ const TeamMembers = () => {
 
   return (
     <div>
-      <div className=" md:mx-32 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* <div className=" md:mx-32 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {teamMembersData
           .slice(startIndex, startIndex + 3)
           .map((member, index) => (
             <TeamMember key={index} {...member} />
           ))}
-      </div>
+      </div> */}
 
-      <div className="mx-8 md:mx-32 mt-8">
+      {/* <div className="mx-8 md:mx-32 mt-8">
         <PaginationIndicator
           activeIndex={startIndex}
           onClick={setStartIndex}
           data={teamMembersData}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
